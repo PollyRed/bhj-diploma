@@ -39,18 +39,17 @@ class User {
    * Получает информацию о текущем
    * авторизованном пользователе.
    * */
-  static fetch(data, callback) {
+  static fetch(callback) {
     return createRequest({
       url: this.URL + '/current',
       method: 'GET',
-      data: data,
       callback: (err, response) => {
-        if (response.success === true) {
+        if (response && response.user) {
           this.setCurrent(response.user);
         } else {
           this.unsetCurrent();
         }
-        //callback.call(this, err, response);
+        callback.call(this, err, response);
       }
     });
   }
@@ -101,12 +100,11 @@ class User {
    * Производит выход из приложения. После успешного
    * выхода необходимо вызвать метод User.unsetCurrent
    * */
-  static logout(data, callback) {
+  static logout(callback) {
     return createRequest({
       url: this.URL + '/logout',
       method: 'POST',
       responseType: 'json',
-      data,
       callback: (err, response) => {
         if (response.success === true) {
           this.unsetCurrent();

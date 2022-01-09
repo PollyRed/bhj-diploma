@@ -13,7 +13,7 @@ class CreateAccountForm extends AsyncForm {
     Account.create(data, function(err, response) {
       if (response.success === true) {
         thisForm.element.reset();
-        App.getModal('create-account').close();
+        App.getModal('createAccount').close();
         App.update();
       }
     });

@@ -53,8 +53,11 @@ class Sidebar {
     const logoutButton = document.querySelector('.menu-item_logout');
     logoutButton.addEventListener('click', function(event) {
       event.preventDefault();
-      let modalLogout = App.getModal('logout');
-      modalLogout.open();
+      User.logout(function(err, response) {
+        if (response.success === true) {
+          App.setState('init');
+        }
+      });
     });
   }
 }
