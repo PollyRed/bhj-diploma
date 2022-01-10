@@ -13,7 +13,7 @@ class Modal {
    * */
   constructor(element){
     if (!element) {
-      throw 'Элемент не существует';
+      throw new Error ('Элемент не существует');
     }
 
     this.element = element;
@@ -28,11 +28,9 @@ class Modal {
   registerEvents() {
     const modals = Array.from(this.element.querySelectorAll('[data-dismiss="modal"]'));
 
-    const thisModal = this;
-
     for (let modal of modals) {
-      modal.addEventListener('click', function (e) {
-        thisModal.onClose(e);
+      modal.addEventListener('click', (e) => {
+        this.onClose(e);
       });
     }
   }

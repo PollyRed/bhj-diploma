@@ -15,7 +15,7 @@ class AccountsWidget {
    * */
   constructor(element) {
     if (!element) {
-      throw 'Элемент не существует!';
+      throw new Error ('Элемент не существует');
     }
     this.element = element;
     this.registerEvents();
@@ -39,11 +39,10 @@ class AccountsWidget {
       modalNewAccount.open();
     });
 
-    const thisWidget = this;
-    this.element.addEventListener('click', function (event) {
+    this.element.addEventListener('click', (event) => {
       event.preventDefault();
       const targetAccount = event.target.closest('.account');
-      thisWidget.onSelectAccount(targetAccount);
+      this.onSelectAccount(targetAccount);
     });
   }
 
@@ -59,10 +58,9 @@ class AccountsWidget {
    * */
   update() {
     const currentUser = User.current();
-    const thisWidget = this;
 
     if (currentUser) {
-      Account.list(currentUser, function(err, response) {
+      Account.list(currentUser, (err, response) => {
         if (err) {
           return;
         }
@@ -70,8 +68,8 @@ class AccountsWidget {
           return;
         }
 
-        thisWidget.clear();
-        thisWidget.renderItem(response.data);
+        this.clear();
+        this.renderItem(response.data);
       });
     }
   }

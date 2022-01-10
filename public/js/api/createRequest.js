@@ -19,7 +19,17 @@ const createRequest = (options = {}) => {
 
   if (options.data) {
     if (options.method === 'GET') {
-      url += `?mail=${options.data.mail}&password=${options.data.password}`;
+      let isFirst = true;
+      for (let key in options.data) {
+        if (isFirst) {
+          url += '?';
+          isFirst = false;
+        } else {
+          url += '&';
+        }
+
+        url += `${key}=${options.data[key]}`;
+      }
     } else {
       for (let key in options.data) {
         formData.append(key, options.data[key]);  
