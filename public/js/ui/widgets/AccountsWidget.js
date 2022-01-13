@@ -100,8 +100,10 @@ class AccountsWidget {
       activeAccount.classList.remove('active');
     }
 
-    element.classList.add('active'); 
-    App.showPage('transactions', {account_id: element.dataset.id});
+    if (element) {
+      element.classList.add('active'); 
+      App.showPage('transactions', {account_id: element.dataset.id});
+    }
   }
 
   /**
